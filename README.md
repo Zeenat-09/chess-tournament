@@ -1,42 +1,39 @@
-# sv
+# Chess Tournament Management System
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+A web application to manage chess tournaments, built with SvelteKit and PostgreSQL (hosted on Supabase).
 
-## Creating a project
+## Features
 
-If you're seeing this, you've probably already done this step. Congrats!
+- **Player Management** — Create, view, update, and delete players
+- **Tournament Management** — Create, view, update, and delete tournaments
+- **Add Players to Tournaments** — Assign existing players to a specific tournament
+- **Random Match System** — Randomly pairs players in a tournament and randomly assigns a winner to each match, saving results to the database
+- **Rankings** — Displays 1st, 2nd, and 3rd place based on total wins in a tournament
 
-```sh
-# create a new project
-npx sv create my-app
-```
+## Tech Stack
 
-To recreate this project with the same configuration:
+- **Frontend/Backend**: SvelteKit (Svelte 5)
+- **Database**: PostgreSQL (hosted on Supabase)
+- **Database Driver**: `pg` (node-postgres)
 
-```sh
-# recreate this project
-npx sv@0.16.2 create --template minimal --no-types --install npm chess-tournament
-```
+## Database Schema
 
-## Developing
+- `players` — id, name, created_at
+- `tournaments` — id, name, status, created_at
+- `tournament_players` — join table linking players to tournaments, tracks wins
+- `matches` — id, tournament_id, player1_id, player2_id, winner_id, created_at
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+## Getting Started
 
-```sh
-npm run dev
+1. Clone this repository
+2. Run `npm install`
+3. Create a `.env` file with your PostgreSQL connection string:
+4. Run the SQL scripts to create the required tables (players, tournaments, tournament_players, matches)
+5. Run `npm run dev` to start the development server
+6. Visit `http://localhost:5173/players` to get started
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+## Pages
 
-## Building
-
-To create a production version of your app:
-
-```sh
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+- `/players` — Manage players
+- `/tournaments` — Manage tournaments
+- `/tournaments/[id]` — View a specific tournament: add players, generate matches, view results and rankings
